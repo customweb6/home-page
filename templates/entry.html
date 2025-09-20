@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Submission Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    form {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    textarea {
+      resize: vertical;
+    }
+    input[type="file"] {
+      margin-top: 8px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/submit-business" method="POST" enctype="multipart/form-data">
+    <h2>Submit Your Business Info</h2>
+
+    <label for="businessName">Business Name *</label>
+    <input type="text" id="businessName" name="businessName" required>
+
+    <label for="businessDescription">Business Description *</label>
+    <textarea id="businessDescription" name="businessDescription" rows="4" required></textarea>
+
+    <label for="businessLocation">Business Location *</label>
+    <input type="text" id="businessLocation" name="businessLocation" required>
+
+    <label for="featuredText">Text You Want Featured on Your Website</label>
+    <textarea id="featuredText" name="featuredText" rows="3"></textarea>
+
+    <label for="notes">Any Notes for Us?</label>
+    <textarea id="notes" name="notes" rows="3"></textarea>
+
+    <label for="mediaUpload">Upload Media to Feature (Images, Videos, etc.)</label>
+    <input type="file" id="mediaUpload" name="mediaUpload" multiple accept="image/*,video/*">
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
