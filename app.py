@@ -14,11 +14,16 @@ cloudinary.config(
   api_secret = "2sDHubfoJ5idJd7gDJ71SA0Gv50" 
 )
 
-cred = credentials.Certificate("serviceAccount.json")
+firebase_creds = os.environ.get("FIREBASE_CREDENTIALS")
+cred_dict = json.loads(firebase_creds)
+cred = credentials.Certificate(cred_dict)
+
+# Initialize Firebase with storage bucket
 firebase_admin.initialize_app(cred, {
     "storageBucket": "customweb-e6165.appspot.com"
 })
 
+# Initialize Firestore and Storage clients
 db = firestore.client()
 bucket = storage.bucket()
 
