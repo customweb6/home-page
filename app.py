@@ -6,7 +6,6 @@ from firebase_admin import credentials, firestore, storage
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-import json
 
 # configure Cloudinary with your credentials
 cloudinary.config( 
@@ -15,16 +14,11 @@ cloudinary.config(
   api_secret = "2sDHubfoJ5idJd7gDJ71SA0Gv50" 
 )
 
-firebase_creds = os.environ.get("FIREBASE_CREDENTIALS")
-cred_dict = json.loads(firebase_creds)
-cred = credentials.Certificate(cred_dict)
-
-# Initialize Firebase with storage bucket
+cred = credentials.Certificate("serviceAccount.json")
 firebase_admin.initialize_app(cred, {
     "storageBucket": "customweb-e6165.appspot.com"
 })
 
-# Initialize Firestore and Storage clients
 db = firestore.client()
 bucket = storage.bucket()
 
@@ -48,10 +42,12 @@ def form():
 def submit_business():
     # Fetch form data
     business_name = request.form.get('businessName')
+    email = request.form.get('email')
     business_description = request.form.get('businessDescription')
     business_location = request.form.get('businessLocation')
     featured_text = request.form.get('featuredText')
     notes = request.form.get('notes')
+    management_plan = request.form.get("managementPlan")
 
     media_files = request.files.getlist('mediaUpload')
     uploaded_urls = []
@@ -65,10 +61,12 @@ def submit_business():
     # Save metadata + file URLs to Firestore
     business_data = {
         "name": business_name,
+        "email": email,
         "description": business_description,
         "location": business_location,
         "featuredText": featured_text,
         "notes": notes,
+        "managementPlan": management_plan,
         "media": uploaded_urls
     }
     db.collection("businesses").add(business_data)
@@ -83,6 +81,4 @@ def submit_business():
 
 
 if __name__ == '__main__':
-    import os
-    port = int(os.environ.get("PORT", 5000))  # default to 5000 if not set
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
