@@ -59,6 +59,9 @@
     <label for="businessName">Business Name *</label>
     <input type="text" id="businessName" name="businessName" required>
 
+    <label for="email">Email *</label>
+    <input type="text" id="email" name="email" required>
+
     <label for="businessDescription">Business Description *</label>
     <textarea id="businessDescription" name="businessDescription" rows="4" required></textarea>
 
@@ -71,8 +74,19 @@
     <label for="notes">Any Notes for Us?</label>
     <textarea id="notes" name="notes" rows="3"></textarea>
 
-    <label for="mediaUpload">Upload Media to Feature (Images, Videos, etc.)</label>
+    <label for="mediaUpload">Upload Media Less than 10MB to Feature (Images, Videos, etc.)</label>
     <input type="file" id="mediaUpload" name="mediaUpload" multiple accept="image/*,video/*">
+
+    <h3>Select a Management Plan</h3>
+    <div class="management-plans">
+      
+        <input type="radio" name="managementPlan" value="Advanced Management" required>
+        Advanced Management - $150/year (frequent updates like photo swaps, menu updates, hosting + domain)
+      <br>
+        <input type="radio" name="managementPlan" value="Basic Management">
+        Basic Management - $50/year (hosting + basic updates)
+    </div>
+
 
     <button type="submit">Submit</button>
   </form>
