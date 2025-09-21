@@ -38,25 +38,30 @@
       margin: 10px 0 20px 20px;
     }
     .pricing {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin: 20px 0;
-    }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+        gap: 20px;
+        margin: 20px 0;
+        }
+
     .pricing-card {
-      background-color: white;
-      padding: 20px;
-      border-radius: 8px;
-      flex: 1 1 250px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
     .pricing-card h3 {
-      margin-top: 0;
-      color: #0056b3;
-    }
-    .pricing-card p {
-      margin: 10px 0;
-    }
+        margin-top: 0;
+        color: #0056b3;
+        }
+
+    .pricing-card:first-child {
+        grid-column: 1 / -1;   /* span across both columns */
+        justify-self: center;  /* optional: center the card */
+        width: 95.5%;            /* optional: make it narrower than full width */
+        }
+
     .cta-button {
       display: inline-block;
       margin-top: 20px;
@@ -67,6 +72,19 @@
       border-radius: 5px;
       font-weight: bold;
     }
+
+    .cta-button2 {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #ffffff;
+      color: #007bff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    
     .cta-button:hover {
       background-color: #0056b3;
     }
@@ -77,6 +95,7 @@
   <header>
     <h1>CustomWeb Design</h1>
     <p>Affordable websites for restaurants, stores, and organizations</p>
+    <a class="cta-button2" href="/entry">Submit Your Business Info</a>
   </header>
 
   <section>
@@ -94,18 +113,16 @@
     <h2>Pricing Options</h2>
     <div class="pricing">
       <div class="pricing-card">
-        <h3>Advanced Website</h3>
-        <p><strong>Fee:</strong> $500–$1,500 (includes e-commerce, booking, ordering, etc.)</p>
-        <p><strong>Domain + Maintenance:</strong> $240–$540/year (frequent updates like photo swaps, menu updates, hosting + domain)</p>
+        <h3>Website</h3>
+        <p><strong>Fee:</strong> $200-$400 (includes 1 website)</p>
       </div>
       <div class="pricing-card">
-        <h3>Starter Website</h3>
-        <p><strong>Fee:</strong> $200–$500 (perfect for small businesses)</p>
-        <p><strong>Domain + Maintenance:</strong> $150–$250/year (basic hosting + updates)</p>
+        <h3>Advanced Management</h3>
+        <p><strong>Fee:</strong> $150/year (frequent updates like photo swaps, menu updates, hosting + domain)</p>
       </div>
       <div class="pricing-card">
-        <h3>Optional Monthly Plan</h3>
-        <p>$15–$50/month for hosting & maintenance</p>
+        <h3>Basic Management</h3>
+        <p><strong>Fee:</strong> $50/year (hosting + basic updates)</p>
       </div>
     </div>
 
