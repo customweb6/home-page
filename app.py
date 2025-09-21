@@ -6,6 +6,7 @@ from firebase_admin import credentials, firestore, storage
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import json
 
 # configure Cloudinary with your credentials
 cloudinary.config( 
