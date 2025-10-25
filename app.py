@@ -10,20 +10,29 @@ import json
 
 # configure Cloudinary with your credentials
 cloudinary.config( 
-  cloud_name = "dgfki2il5", 
-  api_key = "532393676845492", 
-  api_secret = "2sDHubfoJ5idJd7gDJ71SA0Gv50" 
+  cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME", "dgfki2il5"), 
+  api_key = os.environ.get("CLOUDINARY_API_KEY", "532393676845492"), 
+  api_secret = os.environ.get("CLOUDINARY_API_SECRET", "2sDHubfoJ5idJd7gDJ71SA0Gv50")
 )
 
-service_account_info = json.loads(os.environ.get("FIREBASE_CREDENTIALS"))
-cred = credentials.Certificate(service_account_info)
+db = None
+bucket = None
 
-firebase_admin.initialize_app(cred, {
-    "storageBucket": "customweb-e6165.appspot.com"
-})
-
-db = firestore.client()
-bucket = storage.bucket()
+try:
+    firebase_creds = os.environ.get("FIREBASE_CREDENTIALS")
+    if firebase_creds:
+        service_account_info = json.loads(firebase_creds)
+        cred = credentials.Certificate(service_account_info)
+        firebase_admin.initialize_app(cred, {
+            "storageBucket": "customweb-e6165.appspot.com"
+        })
+        db = firestore.client()
+        bucket = storage.bucket()
+        print("Firebase initialized successfully")
+    else:
+        print("Warning: FIREBASE_CREDENTIALS not found. Submission functionality will be disabled.")
+except Exception as e:
+    print(f"Warning: Failed to initialize Firebase: {e}. Submission functionality will be disabled.")
 
 
 app = Flask(__name__)
@@ -43,6 +52,18 @@ def form():
 
 @app.route('/submit-business', methods=['POST'])
 def submit_business():
+    if db is None:
+        return render_template_string("""
+            <html>
+            <head><title>Service Unavailable</title></head>
+            <body style="font-family: Arial; text-align: center; padding: 50px;">
+                <h2>Submission Service Currently Unavailable</h2>
+                <p>Firebase credentials are not configured. Please contact the administrator.</p>
+                <a href="/" style="color: #007bff;">Return to Homepage</a>
+            </body>
+            </html>
+        """)
+    
     # Fetch form data
     business_name = request.form.get('businessName')
     email = request.form.get('email')
